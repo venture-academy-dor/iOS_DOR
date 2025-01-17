@@ -17,9 +17,22 @@
 		0757C2872D39EDC5003FDEE1 /* DOR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0757C2C82D3A7AD8003FDEE1 /* Exceptions for "DOR" folder in "DOR" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0757C2862D39EDC5003FDEE1 /* DOR */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0757C2892D39EDC5003FDEE1 /* DOR */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0757C2C82D3A7AD8003FDEE1 /* Exceptions for "DOR" folder in "DOR" target */,
+			);
 			path = DOR;
 			sourceTree = "<group>";
 		};
@@ -273,6 +286,7 @@
 				DEVELOPMENT_TEAM = BBVZV8T99P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DOR/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Usage Description : 신고할 내용을 촬영하기 위해 카메라 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -303,6 +317,7 @@
 				DEVELOPMENT_TEAM = BBVZV8T99P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DOR/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Usage Description : 신고할 내용을 촬영하기 위해 카메라 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

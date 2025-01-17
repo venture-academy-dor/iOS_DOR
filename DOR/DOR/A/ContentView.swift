@@ -126,7 +126,7 @@ struct ContentView: View {
         submissionMessage = nil
         
         let imageData = selectedImage?.jpegData(compressionQuality: 0.8)
-        networkManager.submitReport(text: reportText, image: imageData, array: fixedArray) { result in
+        networkManager.submitReport(text: reportText, image: imageData) { result in
             DispatchQueue.main.async {
                 isSubmitting = false
                 switch result {

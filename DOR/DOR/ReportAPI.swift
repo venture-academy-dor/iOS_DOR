@@ -9,44 +9,61 @@ import Foundation
 import Moya
 
 enum ReportAPI {
-    case submitReport(text: String, image: Data?, array: [Int])
+    case submitReport(text: String, image: Data?)
+    case getDangerLevel
+    case getReportDetail(id: Int)
 }
 
 extension ReportAPI: TargetType {
+    
     var baseURL: URL {
-        return URL(string: "https://주소.com")! // 실제 API URL로 변경
+        return URL(string: "http://172.168.0.3:5000")!
     }
     
     var path: String {
         switch self {
         case .submitReport:
-            return "/report"
+            return "/upload"
+        case .getDangerLevel:
+            return "/images/1/risk"
+        case .getReportDetail(let id):
+                return "/images/1"
         }
     }
-    
+
     var method: Moya.Method {
-        return .post
+        switch self {
+        case .submitReport:
+            return .post
+        case .getDangerLevel, .getReportDetail:
+            return .get
+        }
     }
     
     var task: Task {
         switch self {
-        case let .submitReport(text, image, array):
+        case let .submitReport(text, image):
             var formData: [MultipartFormData] = [
-                MultipartFormData(provider: .data(text.data(using: .utf8)!), name: "text"),
-                MultipartFormData(provider: .data(arrayToString(array).data(using: .utf8)!), name: "array")
+                MultipartFormData(provider: .data(text.data(using: .utf8)!), name: "report_text"),
             ]
             if let image = image {
                 formData.append(MultipartFormData(provider: .data(image), name: "image", fileName: "image.jpg", mimeType: "image/jpeg"))
             }
             return .uploadMultipart(formData)
+        case .getDangerLevel, .getReportDetail:
+            return .requestPlain
         }
     }
     
     var headers: [String: String]? {
-        return ["Content-Type": "multipart/form-data"]
+        switch self {
+        case .submitReport:
+            return ["Content-Type": "multipart/form-data"]
+        case .getDangerLevel, .getReportDetail:
+            return ["Content-Type": "application/json"]
+        }
     }
     
-    // 배열을 JSON 문자열로 변환
     private func arrayToString(_ array: [Int]) -> String {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: array, options: []) else {
             return "[]"
