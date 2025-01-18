@@ -50,8 +50,19 @@ struct ModalContentView: View {
             switch result {
             case .success(let detail):
                 loadImage(from: detail.imageUrl) { image in
+                    let url = URL(string: "http://172.168.0.3:5000" + detail.imageUrl)
+                    DispatchQueue.global().async { [self] in
+                        if let data = try? Data(contentsOf: url!) {
+                            if let image = UIImage(data: data) {
+                                //UI 변경 작업은 main thread에서 해야함.
+                                DispatchQueue.main.async {
+                                    self.reportImage = image
+                                }
+                            }
+                        }
+                    }
+                    
                     DispatchQueue.main.async {
-                        self.reportImage = image
                         self.content = detail.content
                         self.isLoading = false
                     }
@@ -62,6 +73,7 @@ struct ModalContentView: View {
             }
         }
     }
+    
     
     private func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else {
@@ -95,7 +107,7 @@ struct MapView: View {
     private func getDangerColor(_ level: Int) -> Color {
         switch level {
         case 0:
-            return Color.yellow
+            return Color.green
         case 1:
             return Color(hex: "FFBC2D")  // 약간 위험 (진한 노랑)
         case 2:
@@ -148,7 +160,7 @@ struct MapView: View {
                     path.move(to: CGPoint(x: geometry.size.width * 0.15, y: geometry.size.height * 0.4))
                     path.addLine(to: CGPoint(x: geometry.size.width * 0.28, y: geometry.size.height * 0.4))
                 }
-                .stroke(Color.red, lineWidth: 10)
+                .stroke(Color.green, lineWidth: 10)
 
                 
                 // 2번루트 - 파란선
@@ -244,6 +256,21 @@ extension Color {
         )
     }
 }
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 #Preview {
     MapView()

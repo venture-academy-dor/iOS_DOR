@@ -17,7 +17,7 @@ enum ReportAPI {
 extension ReportAPI: TargetType {
     
     var baseURL: URL {
-        return URL(string: "http://172.168.0.3:5000")!
+        return URL(string: "http://192.168.0.18:5000")!
     }
     
     var path: String {

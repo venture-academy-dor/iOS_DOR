@@ -11,7 +11,8 @@ import SwiftUI
 struct DORApp: App {
     var body: some Scene {
         WindowGroup {
-            MapView()
+            ContentView()
+//            MapView()
         }
     }
 }

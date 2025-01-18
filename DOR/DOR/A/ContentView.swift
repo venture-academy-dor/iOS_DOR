@@ -97,6 +97,7 @@ struct ContentView: View {
             .disabled(isSubmitting)
             
             Spacer()
+            Spacer()
             
             // 결과 메시지
             if let message = submissionMessage {
